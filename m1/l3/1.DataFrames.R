@@ -61,4 +61,49 @@ mydata[,1] == mydata$score
 mydata[,2:5]                # Все строки по 2,3,4,5 наблюдениям
 head(mydata[,2:5])
 
+mydata$gender
+mydata$gender == 'female'
+head(mydata[mydata$gender == 'female', 1:3]) # Все значения 1-го столбика для женщин
+
+head(subset(mydata, gender == 'female'))
+
+subset(mydata, score > 4.8)
+
+#
+# rbind, cbind
+#
+mydata2 <- subset(mydata, gender == 'male')
+mydata3 <- subset(mydata, gender == 'female')
+
+# rbin - соединить 2 фрэйма по строкам, нужно чтобы столбцы назывались одинаково
+# и их было одинкаовое количество
+mydata4 <- rbind(mydata2, mydata3)
+
+mydata5 <- mydata[, 1:10]
+mydata6 <- mydata[, 11:24]
+
+# cbind - скливает по столбцам
+mydata7 <- cbind(mydata6, mydata5)
+
+library(help = 'datasets')
+
+data("mtcars")
+mydata10 <- mtcars
+help(mtcars)
+
+mtcars$even_gear <- abs(mtcars$gear %% 2 - 1)
+View(mtcars)
+
+mpg_4 <- mtcars[mtcars$cyl == 4, 'mpg']
+mpg_4 <- mtcars$mpg[mtcars$cyl == 4]
+
+mini_mtcars <- mtcars[c(3,7,10,12,nrow(mtcars)),]
+
+# Всё кроме 1 и 2 строки
+mini_mtcars1 <- mtcars[-c(1,2),]
+
+# удалить столбик
+mini_mtcars1$mpg <- NULL
+
+
 
