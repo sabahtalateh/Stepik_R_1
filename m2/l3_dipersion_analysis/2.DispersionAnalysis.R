@@ -1,4 +1,5 @@
-setwd("~/Code/Stepik_R_1/m2/l3_dispersion_analysis")
+setwd("~/Code/Stepik_R_1/m2/l3_dipersion_analysis")
+library(ggplot2)
 
 mydata <- read.csv('shops.csv')
 str(mydata)
@@ -87,11 +88,21 @@ summary(tfit3)
 tfit3b <- aov(formula = well_being ~ therapy*price*sex + Error(subject/(therapy*price)), data = therapy)
 summary(tfit3b)
 
-pill <- read.csv('pill.csv')
+pill <- read.csv('pill1.csv')
 pill$patient <- as.factor(pill$patient)
 str(pill)
 
 tpill <- aov(formula = temperature ~ pill*doctor + Error(patient/(pill*doctor)), data = pill)
 summary(tpill)
+
+tg <- ToothGrowth
+tg$dose <- as.factor(tg$dose)
+str(tg)
+
+ggplot(ToothGrowth, aes(x = dose, y = len, col = supp, group = supp))+
+  stat_summary(fun.data = mean_cl_boot, geom = 'errorbar', width = 0.1, position = position_dodge(0.2))+
+  stat_summary(fun.data = mean_cl_boot, geom = 'point', size = 3, position = position_dodge(0.2))+
+  stat_summary(fun.data = mean_cl_boot, geom = 'line', position = position_dodge(0.2))
+
 
 
